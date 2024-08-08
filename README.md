@@ -1,6 +1,6 @@
 # Star Heroes
 
-[VISIT_PAGE](https://vercel.com/)
+[VISIT_PAGE](https://star-heroes.netlify.app)
 
 Application for exploring Star Wars characters.
 
