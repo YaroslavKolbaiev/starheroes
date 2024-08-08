@@ -14,6 +14,7 @@ module.exports = {
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
+  ignorePatterns: ["src/cache/*"],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -28,6 +29,6 @@ module.exports = {
     "react/jsx-newline": 2,
     "import/prefer-default-export": 0,
     "@typescript-eslint/no-explicit-any": 1,
-
+    "react/jsx-max-props-per-line": [2, { "maximum": 2, "when": "always" }],
   }
 }

@@ -7,6 +7,7 @@
   --footer-height: 4rem;
   --main-page-padding: 1rem;
   --main-layout-height: calc(100vh - var(--header-height) - var(--footer-height) - 2 * var(--main-page-padding));
+  --parent-node-w: 240px
 }
 ::-webkit-scrollbar {
   width: 0.5em;
@@ -16,3 +17,9 @@
   background-color: #404040;
   border-radius: 10px;
 }
+
+.react-flow__attribution {
+  display: none;
+}
+
+

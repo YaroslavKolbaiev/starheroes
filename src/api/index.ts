@@ -1,19 +1,36 @@
-import axios from 'axios';
-import { GetHerousResponse } from '../types';
-// import data from '../test/mockData.json';
+import {
+  GetHerousResponse, Hero, GetFilmsResponse, GetStarshipsResponse,
+} from '../types';
+import { BASE_URL } from '../utils';
+import { apiErrorHandler } from '../services/error-services';
+import { httpClient } from '../http';
 
-const BASE_URL = import.meta.env.VITE_API_URL;
-
-export const getHeroes = async () => {
+// getHeroes fetches a list of heroes from the API
+export const getHeroes = async (page: string = '1') => {
   try {
-    const { data } = await axios.get<GetHerousResponse>(`${BASE_URL}/people/?page=1`);
+    const { data } = await httpClient.get<GetHerousResponse>(`${BASE_URL}/people/?page=${page}`);
+    return data;
+  } catch (err: any) {
+    return apiErrorHandler(err);
+  }
+};
 
-    return data.results;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      return { error: error.response?.data.message };
-    }
+// getHero fetches a hero by his ID together with the films and starships they appear in
+// Promise.all is used to make the requests concurrently
+export const getHero = async (id: string) => {
+  try {
+    const [hero, films, starships] = await Promise.all([
+      httpClient.get<Hero>(`${BASE_URL}/people/${id}`),
+      httpClient.get<GetFilmsResponse>(`${BASE_URL}/films/?characters=${id}`),
+      httpClient.get<GetStarshipsResponse>(`${BASE_URL}/starships/?pilots=${id}`),
+    ]);
 
-    return { error: 'Unknown error has ocured' };
+    return {
+      hero: hero.data,
+      films: films.data,
+      starships: starships.data,
+    };
+  } catch (err: any) {
+    return apiErrorHandler(err);
   }
 };
