@@ -4,6 +4,8 @@ import { Header } from './components/header';
 import { PageNotFound } from './pages/PageNotFound';
 import { HomePage } from './pages/HomePage';
 import { HeroPage } from './pages/HeroPage/HeroPage';
+import { BgImage } from './components/bg-image';
+import { Fader } from './components/section-fader';
 
 export default function App() {
   return (
@@ -11,14 +13,9 @@ export default function App() {
        relative
        flex
        flex-col
-       bg-sky-mob
-       sm:bg-sky-sm
-       md:bg-sky-md
-       lg:bg-sky
-       bg-cover
        "
     >
-      <div className="absolute w-full h-full bg-black opacity-40" />
+      <BgImage />
 
       <Header />
 
@@ -45,17 +42,7 @@ export default function App() {
             <Route path="/hero/:id" element={<HeroPage />} />
           </Routes>
 
-          <div className="absolute
-             bottom-0
-             left-0
-             right-0
-             h-16
-             bg-gradient-to-t
-             from-neutral-800
-             to-transparent
-             pointer-events-none
-             "
-          />
+          <Fader />
         </div>
       </section>
 
